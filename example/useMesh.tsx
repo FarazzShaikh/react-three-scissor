@@ -10,7 +10,7 @@ export default function useMesh({ limit }: { limit: number }) {
       Object.values(nodes)
         .filter((o: any) => o.isMesh)
         .splice(0, limit) as any,
-    [limit]
+    [limit, nodes]
   );
 
   return meshes;
