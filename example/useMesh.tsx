@@ -1,9 +1,9 @@
 import { useGLTF } from "@react-three/drei";
 import { useMemo } from "react";
 
-export default function useMesh({ limit }: any) {
+export default function useMesh({ limit }: { limit: number }) {
   // @ts-ignore
-  const { nodes, materials } = useGLTF("/models/mesh.glb");
+  const { nodes } = useGLTF("/models/mesh.glb");
 
   const meshes: THREE.Mesh[] = useMemo(
     () =>

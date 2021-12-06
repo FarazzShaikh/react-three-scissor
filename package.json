@@ -1,10 +1,9 @@
 {
   "name": "react-three-scisor",
-  "description": "Multiple scenes one canvas! WebGL Scissoring implementation for React Three Fiber.",
+  "description": "Multiple scenes, one canvas! WebGL Scissoring implementation for React Three Fiber.",
   "version": "0.1.0",
   "main": "build/index.js",
   "types": "build/index.d.ts",
-  "type": "module",
   "dependencies": {
     "@react-three/drei": "^7.26.1",
     "@react-three/fiber": "^7.0.21",
@@ -53,7 +52,9 @@
   ],
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "tsc"
+    "build": "tsc",
+    "serve": "serve example-build",
+    "build:example": "react-app-rewired build"
   },
   "eslintConfig": {
     "extends": [

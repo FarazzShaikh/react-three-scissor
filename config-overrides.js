@@ -12,6 +12,7 @@ module.exports = {
   paths: function (paths, env) {
     paths.appIndexJs = path.resolve(__dirname, "example/index.tsx");
     paths.appSrc = path.resolve(__dirname, "example");
+    paths.appBuild = path.resolve(__dirname, "example-build");
     return paths;
   },
 

@@ -35,7 +35,7 @@ const item = {
   show: { scale: 1 },
 };
 
-function Cells({ limit }: any) {
+function Cells({ limit }: { limit: number }) {
   const meshes = useMesh({ limit });
 
   return (
