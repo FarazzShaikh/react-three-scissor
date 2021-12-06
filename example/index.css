@@ -1,12 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-color: #000000;
+  background-color: #fef5ed;
 
   width: 100vw;
   height: 100vh;
@@ -19,20 +20,114 @@ code {
 }
 
 #root {
-  padding: 1em;
+  width: 100%;
+  height: 100%;
+  border: solid #fffbf7 1.1em;
   box-sizing: border-box;
+  overflow-x: hidden;
+  position: relative;
 }
 
 .container {
   display: flex;
   flex-wrap: wrap;
   gap: 1em;
+  align-items: center;
+  justify-content: center;
 }
 
 .cell {
-  border: 2px solid #fec260;
   border-radius: 10px;
-
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
   width: 200px;
   height: 200px;
+  cursor: grab;
+  border: 2px solid #c59c7d;
+  transition: transform 200ms ease-in-out;
+  overflow: hidden;
+}
+
+.cell:active {
+  cursor: grabbing;
+}
+
+.cell:hover {
+  transform: scale(1.1);
+}
+
+.title {
+  width: 100%;
+  text-align: center;
+  font-size: 5em;
+  margin: 0;
+  color: #c59c7d;
+  padding: 0;
+  text-transform: uppercase;
+  display: inline;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.title-container {
+  font-family: "Raleway", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+h3 {
+  width: 100%;
+  text-align: center;
+  font-size: 1em;
+  color: #c2bab4;
+  margin: 16px 0px;
+  font-weight: normal;
+}
+
+.ScissorWindow-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  pointer-events: none;
+}
+
+p {
+  width: 100%;
+  text-align: center;
+  font-size: 1em;
+  color: #c59c7d;
+  margin: 16px 0px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.input {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: 16px 0px;
+  font-size: 1.5em;
+  color: #c59c7d;
+  font-family: "Raleway", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+.input span {
+  width: 60%;
+}
+
+.rc-slider-handle {
+  border: solid 2px #c59c7d !important;
+}
+
+.rc-slider-track {
+  background-color: #c59c7d !important;
+}
+
+.github-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

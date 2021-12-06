@@ -1,4 +1,4 @@
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, Props, useFrame } from "@react-three/fiber";
 import React, { forwardRef } from "react";
 import store from "./store";
 
@@ -20,6 +20,10 @@ function ScissorRenderer() {
     gl.setScissorTest(false);
     gl.clear(true, true);
     gl.setScissorTest(true);
+
+    // const transform = `translateY(${window.scrollY}px)`;
+    // if (gl.domElement.parentElement)
+    //   gl.domElement.parentElement.style.transform = transform;
 
     for (const key in windows) {
       const { scene, element, camera, hasInit } = windows[key];
@@ -73,7 +77,7 @@ function ScissorRenderer() {
 
 const ScissorCanvas = forwardRef<
   HTMLCanvasElement,
-  React.PropsWithChildren<any>
+  React.PropsWithChildren<Props>
 >((props, ref) => {
   return (
     <Canvas

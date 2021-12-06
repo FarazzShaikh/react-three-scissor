@@ -1,7 +1,6 @@
-import create, { StoreApi } from "zustand";
+import create from "zustand";
 import produce from "immer";
-import { MathUtils, PerspectiveCamera, Scene } from "three";
-
+import * as THREE from "three";
 import { iScissorWindow, tScissorCallback } from "./ScissorTypes";
 
 interface iScissorRootState {
@@ -14,19 +13,26 @@ interface iScissorRootState {
   initSubscribers: {
     [key: string]: tScissorCallback;
   };
-  addWindow: (
-    window: HTMLElement,
-    id?: string,
-    camera?: THREE.Camera
-  ) => string;
-  removeWindow: (id: string) => void;
-  addGroup: (group: THREE.Group, id: string) => void;
+  addWindow: (window: HTMLElement, id?: string | undefined) => string;
+  removeWindow: (id: string) => any;
+  addScene: (
+    scene: THREE.Scene,
+    id: string,
+    camera?: THREE.Camera | undefined
+  ) => any;
+  removeScene: (id: string) => any;
+  sethasInit: (hasInit: boolean, id: string) => any;
+  getIds: () => string[];
+  addSubscriber: (cb: tScissorCallback, uuid: string[]) => any;
+  removeSubscriber: (uuid: string[]) => any;
+  addInitSubscriber: (cb: tScissorCallback, uuid: string[]) => any;
+  removeInitSubscriber: (uuid: string[]) => any;
 }
 
-export default create((set: any, get: any) => ({
+export default create<iScissorRootState>((set: any, get: any) => ({
   windows: {},
   addWindow: (window: HTMLElement, id?: string) => {
-    const uuid = id ?? MathUtils.generateUUID();
+    const uuid = id ?? THREE.MathUtils.generateUUID();
     set(
       produce((state: iScissorRootState) => {
         state.windows[uuid] = {
@@ -48,8 +54,17 @@ export default create((set: any, get: any) => ({
     set(
       produce((state: iScissorRootState) => {
         if (state.windows[id]) {
+          const elem = state.windows[id].element;
+          const rect = elem.getBoundingClientRect();
           state.windows[id].scene = scene;
-          state.windows[id].camera = camera ?? new PerspectiveCamera();
+          state.windows[id].camera =
+            camera ??
+            new THREE.PerspectiveCamera(
+              75,
+              rect.width / rect.height,
+              0.1,
+              1000
+            );
           state.windows[id].hasInit = false;
         }
       })
@@ -73,7 +88,7 @@ export default create((set: any, get: any) => ({
         if (uuid.length > 0) {
           uuid.forEach((id) => (state.frameSubscribers[id] = cb));
         } else {
-          Object.keys(state.frameSubscribers).forEach(
+          Object.keys(state.windows).forEach(
             (k) => (state.frameSubscribers[k] = cb)
           );
         }
@@ -97,7 +112,7 @@ export default create((set: any, get: any) => ({
         if (uuid.length > 0) {
           uuid.forEach((id) => (state.initSubscribers[id] = cb));
         } else {
-          Object.keys(state.initSubscribers).forEach(
+          Object.keys(state.windows).forEach(
             (k) => (state.initSubscribers[k] = cb)
           );
         }

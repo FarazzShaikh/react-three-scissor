@@ -1,97 +1,123 @@
-import { useFrame } from "@react-three/fiber";
-import React, { Suspense, useRef } from "react";
+import { Suspense, useState } from "react";
 import { hot } from "react-hot-loader";
-import Helpers from "./utils/Helpers";
 
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { ScissorCanvas, ScissorWindow } from "../src/index";
+import Model from "./Models";
+import { softShadows } from "@react-three/drei";
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css";
+import useMesh from "./useMesh";
+import GitHubButton from "react-github-btn";
+//@ts-ignore
+import { Scrollbars } from "react-custom-scrollbars";
+//@ts-ignore
+import { AnimatePresence, motion } from "framer-motion/dist/es/index";
 
-import {
-  ScissorCanvas,
-  ScissorScene,
-  ScissorStore,
-  ScissorWindow,
-  useScissorFrame,
-  useScissorInit,
-} from "../src/index";
+softShadows();
 
-const arr = new Array(6).fill(0);
-
-const Cube = ({ i, uuid }: any) => {
-  const mesh = useRef<THREE.Mesh>();
-  const orbit = useRef<OrbitControls>();
-
-  useFrame((state, dt) => {
-    if (mesh.current) {
-      mesh.current.rotation.x = Math.sin(state.clock.elapsedTime);
-      mesh.current.rotation.y = -Math.sin(state.clock.elapsedTime);
-    }
-  });
-
-  useScissorFrame(
-    (state) => {
-      if (orbit.current) {
-        orbit.current.update();
-      }
+const container = {
+  hidden: {
+    scale: 0,
+    transition: {
+      staggerChildren: 10,
     },
-    [uuid]
-  );
-
-  useScissorInit(
-    ({ camera, element }) => {
-      camera.position.set(2, 2, 2);
-      camera.lookAt(0, 0, 0);
-      orbit.current = new OrbitControls(camera, element);
+  },
+  show: {
+    scale: 1,
+    transition: {
+      staggerChildren: 10,
     },
-    [uuid]
-  );
-
-  return (
-    <group>
-      <mesh ref={mesh}>
-        <dodecahedronGeometry />
-        <meshPhongMaterial
-          color={0x156289}
-          //@ts-ignore
-          emissive={0x072534}
-          side={THREE.DoubleSide}
-          flatShading
-        />
-      </mesh>
-      <pointLight args={[0xffffff, 1, 0]} position={[0, 200, 0]} />
-      <pointLight args={[0xffffff, 1, 0]} position={[100, 200, 100]} />
-      <pointLight args={[0xffffff, 1, 0]} position={[-100, -200, -100]} />
-    </group>
-  );
+  },
 };
 
-function App() {
-  const refArray = useRef<HTMLElement[]>([]);
-  const { getIds } = ScissorStore();
+const item = {
+  hidden: { scale: 0 },
+  show: { scale: 1 },
+};
+
+function Cells({ limit }: any) {
+  const meshes = useMesh({ limit });
 
   return (
-    <div className="container">
+    <>
       <ScissorCanvas
         gl={{
           antialias: true,
         }}
+        shadows
       >
         <Suspense fallback={null}>
-          {getIds().map((id, i) => (
-            <ScissorScene uuid={id} key={i}>
-              <group>
-                <Cube i={i} uuid={id} />
-                <Helpers />
-              </group>
-            </ScissorScene>
-          ))}
+          <Model meshes={meshes} />
         </Suspense>
       </ScissorCanvas>
 
-      {arr.map((_, i) => (
-        <ScissorWindow className="cell" uuid={`${i}`} key={i} />
-      ))}
-    </div>
+      <AnimatePresence>
+        <motion.div
+          className="container"
+          variants={container}
+          initial="hidden"
+          animate="show"
+          exit="hidden"
+        >
+          {meshes.map((m, i) => (
+            <motion.div key={i} variants={item}>
+              <ScissorWindow className="cell" uuid={`${i}`}>
+                <div className="ScissorWindow-container">
+                  <p>{m?.parent?.name || `Model ${i + 1}`}</p>
+                </div>
+              </ScissorWindow>
+            </motion.div>
+          ))}
+        </motion.div>
+      </AnimatePresence>
+    </>
+  );
+}
+
+function App() {
+  const [nMesh, setNMeshes] = useState(1);
+  const [nMeshFinal, setNMeshesFinal] = useState(1);
+
+  return (
+    <Scrollbars
+      autoHide //
+      autoHideTimeout={1000}
+      autoHideDuration={200}
+    >
+      <p className="title-container">
+        react-three-<div className="title">Scissor</div>
+      </p>
+
+      <div className="github-btn ">
+        <GitHubButton
+          href="https://github.com/farazzshaikh/react-three-scissor"
+          data-color-scheme="no-preference: light; light: light; dark: dark;"
+          data-size="large"
+          aria-label="Star farazzshaikh/react-three-scissor on GitHub"
+        >
+          Star
+        </GitHubButton>
+      </div>
+
+      <div className="input">
+        <span>
+          <Slider
+            min={1}
+            max={100}
+            onAfterChange={(v) => setNMeshesFinal(v)}
+            onChange={(v) => setNMeshes(v)}
+          />
+          <div>
+            {nMesh} mesh{nMesh > 1 ? "s" : ""}
+          </div>
+        </span>
+      </div>
+
+      <h3>Click + drag on each animal!</h3>
+      <Suspense fallback={null}>
+        <Cells limit={nMeshFinal} />
+      </Suspense>
+    </Scrollbars>
   );
 }
 

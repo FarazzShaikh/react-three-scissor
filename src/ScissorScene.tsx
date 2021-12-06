@@ -1,21 +1,9 @@
 import React, { forwardRef, useEffect, useRef } from "react";
 import store from "./store";
+import useCombinedRefs from "./hooks/useCombinedRefs";
 
 interface iScissorGroupProps {
   uuid: string;
-}
-
-function useCombinedRefs<T>(...refs: any[]) {
-  const targetRef = React.useRef<T>(null);
-
-  React.useEffect(() => {
-    refs.forEach((ref) => {
-      if (!ref) return;
-      ref.current = targetRef.current;
-    });
-  }, [refs]);
-
-  return targetRef;
 }
 
 const ScissorScene = forwardRef<
@@ -31,6 +19,8 @@ const ScissorScene = forwardRef<
     if (localRef.current) {
       addScene(localRef.current, uuid);
       return () => removeScene(uuid);
+    } else {
+      return;
     }
   }, [localRef]);
 

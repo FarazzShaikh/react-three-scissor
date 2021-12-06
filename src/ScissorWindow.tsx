@@ -1,21 +1,9 @@
 import React, { forwardRef, useEffect, useRef } from "react";
 import store from "./store";
+import useCombinedRefs from "./hooks/useCombinedRefs";
 
 interface iScissorWindowProps {
   uuid?: string;
-}
-
-function useCombinedRefs<T>(...refs: any[]) {
-  const targetRef = React.useRef<T>(null);
-
-  React.useEffect(() => {
-    refs.forEach((ref) => {
-      if (!ref) return;
-      ref.current = targetRef.current;
-    });
-  }, [refs]);
-
-  return targetRef;
 }
 
 const ScissorWindow = forwardRef<
@@ -31,6 +19,8 @@ const ScissorWindow = forwardRef<
     if (localRef.current) {
       const _uuid = addWindow(localRef.current, uuid);
       return () => removeWindow(_uuid);
+    } else {
+      return;
     }
   }, [localRef]);
 
