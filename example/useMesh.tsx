@@ -1,9 +1,14 @@
 import { useGLTF } from "@react-three/drei";
 import { useMemo } from "react";
 
+const ghPagesBaseURl =
+  process.env.NODE_ENV === "development"
+    ? "/"
+    : "https://farazzshaikh.github.io/react-three-scissor/";
+
 export default function useMesh({ limit }: { limit: number }) {
   // @ts-ignore
-  const { nodes } = useGLTF("/models/mesh.glb");
+  const { nodes } = useGLTF(`${ghPagesBaseURl}models/mesh.glb`);
 
   const meshes: THREE.Mesh[] = useMemo(
     () =>
@@ -15,3 +20,5 @@ export default function useMesh({ limit }: { limit: number }) {
 
   return meshes;
 }
+
+useGLTF.preload(`${ghPagesBaseURl}models/mesh.glb`);
