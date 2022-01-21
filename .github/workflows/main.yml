@@ -17,10 +17,10 @@ jobs:
           yarn build:example
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: JamesIves/github-pages-deploy-action@v4.2.2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./example-build
+          branch: gh-pages
+          folder: example-build
 
       - name: Publish to NPM
         uses: JS-DevTools/npm-publish@v1
