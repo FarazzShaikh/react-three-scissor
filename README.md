@@ -7,7 +7,7 @@
   Multiple scenes, one canvas! WebGL Scissoring implementation for React Three Fiber.
   </p>
   <p align="center">
-    <a href="https://www.npmjs.com/package/react-three-scisor"><img align="center" src="https://img.shields.io/npm/v/react-three-scisor?color=cc3534&style=for-the-badge" /></a>
+    <a href="https://www.npmjs.com/package/react-three-scissor"><img align="center" src="https://img.shields.io/npm/v/react-three-scissor?color=cc3534&style=for-the-badge" /></a>
   </p>
 </p>
 
