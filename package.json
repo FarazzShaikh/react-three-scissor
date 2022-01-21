@@ -47,7 +47,7 @@
   "author": "Faraz Shaikh",
   "license": "MIT",
   "files": [
-    "build/*",
+    "build/**/*",
     "README.md",
     "package.json"
   ],
