@@ -43,6 +43,10 @@ export default function Model({ meshes }: { meshes: THREE.Mesh[] }) {
       {meshes.map((m, i) => {
         return (
           <ScissorScene uuid={`${i}`} key={i}>
+            <color
+              attach="background"
+              args={[new THREE.Color('#f9f5f2')]}
+            />
             <group scale={0.1} rotation-x={THREE.MathUtils.degToRad(90)}>
               <Center>
                 <mesh castShadow geometry={m.geometry}>

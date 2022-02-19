@@ -16,7 +16,7 @@ function ScissorRenderer() {
 
   useFrame((state) => {
     const { gl } = state;
-
+    gl.setClearColor(0xffffff, 0);
     gl.setScissorTest(false);
     gl.clear(true, true);
     gl.setScissorTest(true);
