@@ -1,7 +1,7 @@
 {
   "name": "react-three-scissor",
   "description": "Multiple scenes, one canvas! WebGL Scissoring implementation for React Three Fiber.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "dependencies": {
