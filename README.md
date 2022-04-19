@@ -1,4 +1,3 @@
-<br />
 <p align="center">
    
   <h1 align="center"><sup>react-three-</sup>Scissor</h1>
@@ -6,43 +5,16 @@
   <p align="center">
   Multiple scenes, one canvas! WebGL Scissoring implementation for React Three Fiber.
   </p>
-  <p align="center">
-    <a href="https://www.npmjs.com/package/react-three-scissor"><img align="center" src="https://img.shields.io/npm/v/react-three-scissor?color=cc3534&style=for-the-badge" /></a>
-  </p>
 </p>
 
-<details open>
-  <summary>Table of Contents</summary>
-  <!-- <ol>
-    <li>
-      <a href="#why-this">Why This?</a>
-      </li>
-      <li>
-      <a href="#installation">Installation</a>
-      </li>
-      <li>
-      <a href="#importing">Importing</a>
-      </li>
-       <li>
-        <a href="#usage---javascript">Usage - JavaScript</a>
-        <ul>
-            <li><a href="#shader-chunks">Shader Chunks</a></li>
-            <ul>
-                <li><a href="#patchshaders">`patchShaders`</a></li>
-                <li><a href="#patchshaderscsm">`patchhadersCSM`</a></li>
-            </ul>
-            <li><a href="#loaders">Loaders</a></li>
-        </ul>
-        </li>
-      <li>
-      <a href="#usage---glsl">Usage - GLSL</a>
-      </li>
-      <li>
-      <a href="#credits">Credits</a>
-      </li>
-  </ol> -->
-</details>
+<p align="center">
+  <h1 align="center">Depricated! Use <a href="https://github.com/pmndrs/drei#view"><code>&lt;View /&gt;</code></a> from <code>react-three-drei</code></h1>
+</p>
 
+
+<details>
+<summary>Show depricated readme</summary>
+   
 <br />
 
 <p align="center">
@@ -130,3 +102,4 @@ function App() {
   );
 }
 ```
+</details>
